@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Battle Talk — Farg'ona 🎤✨</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            rosebrand: {
+              50: '#fff1f2',
+              100: '#ffe4e6',
+              200: '#fecdd3',
+              300: '#fda4af',
+              400: '#fb7185',
+              500: '#f43f5e',
+              600: '#e11d48',
+              700: '#be123c',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background: #fff5f7;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(255, 182, 193, 0.45) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(255, 192, 203, 0.45) 0px, transparent 50%),
+        radial-gradient(at 50% 50%, rgba(255, 245, 247, 0.95) 0px, transparent 50%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      color: #334155;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 182, 193, 0.6);
+    }
+
+    .btn-pink-gradient {
+      background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 50%, #f43f5e 100%);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-pink-gradient:hover {
+      box-shadow: 0 10px 25px -5px rgba(255, 117, 140, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .sticker-float {
+      animation: floatSlow 3.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatSlow {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-10px) rotate(6deg); }
+    }
+  </style>
+</head>
+<body class="font-sans antialiased relative min-h-screen flex flex-col justify-between py-6 px-4">
+
+  <!-- Floating Background Icons -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-30 select-none">
+    <span class="absolute top-10 left-8 text-6xl sticker-float">🎤</span>
+    <span class="absolute top-1/4 right-10 text-6xl sticker-float" style="animation-delay: 1s;">✨</span>
+    <span class="absolute bottom-1/3 left-12 text-6xl sticker-float" style="animation-delay: 1.5s;">💖</span>
+    <span class="absolute bottom-10 right-12 text-6xl sticker-float" style="animation-delay: 0.5s;">🌸</span>
+  </div>
+
+  <!-- Header Branding -->
+  <header class="relative z-10 max-w-lg mx-auto w-full text-center mb-4">
+    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/80 border border-rose-200/80 shadow-sm backdrop-blur-md mb-2">
+      <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+      <span class="text-xs font-bold text-rose-600 uppercase tracking-wider">Farg'ona — Barcha Uchun Ochiq Loyiha ✨</span>
+    </div>
+  </header>
+
+  <!-- Main Registration Card -->
+  <main class="relative z-10 max-w-md mx-auto w-full">
+    <div class="glass-card rounded-3xl overflow-hidden shadow-2xl shadow-rose-200/60">
+      
+      <!-- Top Banner -->
+      <div class="bg-gradient-to-r from-rose-500 via-pink-500 to-rose-400 text-white p-8 text-center relative overflow-hidden">
+        <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-white/20 rounded-full blur-xl"></div>
+        <span class="inline-block bg-white/25 backdrop-blur-md px-4 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider mb-2">
+          LOYIHA UCHUN RO'YXATDAN O'TISH 🌸
+        </span>
+        <h1 class="text-2xl sm:text-3xl font-black tracking-tight">Battle Talk — Farg'ona 🎤✨</h1>
+        <p class="text-rose-100 text-xs sm:text-sm mt-2 font-medium">
+          O'zingizni ko'rsating, bilimingizni namoyish eting va a'zo bo'ling! 💖
+        </p>
+      </div>
+
+      <!-- Registration Form -->
+      <form id="registrationForm" class="p-6 sm:p-8 space-y-5" onsubmit="handleFormSubmit(event)">
+        
+        <!-- Name Field -->
+        <div>
+          <label class="block text-xs font-bold text-rose-600 uppercase tracking-wider mb-2">
+            👤 Ism va Familiyangiz *
+          </label>
+          <input type="text" id="name" required placeholder="Ismingiz va familiyangizni kiriting" 
+            class="w-full px-4 py-3.5 rounded-xl border border-rose-200 bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all text-sm font-medium text-slate-800 placeholder-slate-400">
+        </div>
+
+        <!-- Phone Field -->
+        <div>
+          <label class="block text-xs font-bold text-rose-600 uppercase tracking-wider mb-2">
+            📞 Telefon Raqamingiz *
+          </label>
+          <input type="tel" id="phone" required value="+998 " 
+            class="w-full px-4 py-3.5 rounded-xl border border-rose-200 bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all text-sm font-medium text-slate-800">
+        </div>
+
+        <!-- Age Field -->
+        <div>
+          <label class="block text-xs font-bold text-rose-600 uppercase tracking-wider mb-2">
+            🎂 Yoshi *
+          </label>
+          <input type="number" id="age" min="10" max="80" required placeholder="Masalan: 18" 
+            class="w-full px-4 py-3.5 rounded-xl border border-rose-200 bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all text-sm font-medium text-slate-800 placeholder-slate-400">
+        </div>
+
+        <!-- Goal / Comment Field -->
+        <div>
+          <label class="block text-xs font-bold text-rose-600 uppercase tracking-wider mb-2">
+            💬 Loyihadagi maqsadingiz / Izoh
+          </label>
+          <textarea id="comment" rows="3" placeholder="Maqsadingiz yoki takliflaringizni yozing..." 
+            class="w-full px-4 py-3 rounded-xl border border-rose-200 bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all text-sm font-medium text-slate-800 placeholder-slate-400 resize-none"></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="submitBtn" class="btn-pink-gradient w-full py-4 rounded-2xl text-white font-black text-base tracking-wide flex items-center justify-center gap-2 shadow-lg shadow-rose-300/60 mt-2">
+          <span>RO'YXATDAN O'TISH 🚀</span>
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 text-center text-xs font-semibold text-rose-400 mt-6">
+    Battle Talk — Farg'ona 🎤✨ &copy; 2026. Barcha huquqlar himoyalangan.
+  </footer>
+
+  <!-- SUCCESS POPUP MODAL -->
+  <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-md hidden transition-all duration-300">
+    <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl border border-rose-200 transform transition-all scale-95 animate-in fade-in zoom-in">
+      
+      <div class="w-20 h-20 bg-gradient-to-tr from-pink-400 via-rose-400 to-pink-300 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg shadow-rose-300/60 sticker-float">
+        🎉 💖 ✨
+      </div>
+
+      <span class="inline-block bg-rose-100 text-rose-600 border border-rose-200 px-3 py-1 rounded-full text-xs font-black mb-2 tracking-wider uppercase">
+        BATTLE TALK FARG'ONA ✨
+      </span>
+
+      <h2 class="text-2xl font-black text-slate-800 mb-2 leading-snug">
+        Muvaffaqiyatli yakunlandi! 🎉
+      </h2>
+
+      <p class="text-sm font-bold text-rose-600 bg-rose-50 p-4 rounded-2xl border border-rose-200/80 mb-6 leading-relaxed">
+        Sizga o'zimiz aloqaga chiqamiz 💖✨
+      </p>
+
+      <button onclick="closeSuccessModal()" class="btn-pink-gradient w-full py-3.5 rounded-xl text-white font-black text-sm shadow-md">
+        YOPISH
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // OPTIONAL: Place your Telegram Bot Token and Chat ID here to receive registrations directly
+    const BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE';
+    const CHAT_ID = 'YOUR_CHAT_ID_HERE';
+
+    const STORAGE_KEY = 'battle_talk_fergana_registrations';
+
+    function getRegistrations() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (!stored) return [];
+      try { return JSON.parse(stored); } catch(e) { return []; }
+    }
+
+    function saveRegistrations(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      
+      const submitBtn = document.getElementById('submitBtn');
+
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const age = document.getElementById('age').value;
+      const comment = document.getElementById('comment').value.trim() || 'Izoh yo\'q';
+      const date = new Date().toLocaleString('uz-UZ', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>YUBORILMOQDA... ✨</span>';
+
+      // 1. Always save data to Local Storage
+      const currentData = getRegistrations();
+      const newItem = { id: Date.now(), name, phone, age, comment, date };
+      currentData.unshift(newItem);
+      saveRegistrations(currentData);
+
+      // 2. Send to Telegram Bot if configured
+      if (BOT_TOKEN !== 'YOUR_BOT_TOKEN_HERE' && CHAT_ID !== 'YOUR_CHAT_ID_HERE') {
+        const message = `🎤 <b>Battle Talk — Yangi Ariza!</b>\n\n👤 <b>Ismi:</b> ${name}\n📞 <b>Tel:</b> ${phone}\n🎂 <b>Yoshi:</b> ${age}\n💬 <b>Izoh:</b> ${comment}\n📅 <b>Sana:</b> ${date}`;
+        
+        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'HTML' })
+        }).catch(err => console.log('Telegram notice:', err));
+      }
+
+      setTimeout(() => {
+        // Reset Form inputs
+        document.getElementById('registrationForm').reset();
+        document.getElementById('phone').value = "+998 ";
+
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>RO\'YXATDAN O\'TISH 🚀</span>';
+
+        // Trigger Confetti
+        if (typeof confetti === 'function') {
+          confetti({
+            particleCount: 120,
+            spread: 90,
+            origin: { y: 0.6 }
+          });
+        }
+
+        // Show Success Modal
+        document.getElementById('successModal').classList.remove('hidden');
+
+      }, 400);
+    }
+
+    function closeSuccessModal() {
+      document.getElementById('successModal').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
